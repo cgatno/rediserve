@@ -26,6 +26,7 @@ rediserve.prototype.up = function (redisCli, expressApp, appName) {
                 }
             }
     });
+    expressApp.listen(8080);
 }
 
 /**
