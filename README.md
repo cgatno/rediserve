@@ -5,7 +5,9 @@ This is a Redis client wrapper for working with lightning fast EmberJS deploymen
 
 Install with:
 
-    npm install redis
+    npm install rediserve
+
+Before going any further, I have to give a __huge__ shoutout to [Matthew Ranney](https://github.com/mranney) and all of his collaborators for creating [_the best_ node Redis client](https://github.com/NodeRedis/node_redis) upon which this project heavily depends.
 
 ## Usage example
 
@@ -17,7 +19,9 @@ TODO
 
 ## Contributors
 
-The original author of node_redis is [Christian Gaetano](https://github.com/cgatno)
+The original author of rediserve is [Christian Gaetano](https://github.com/cgatno)
+
+[Matthew Ranney](https://github.com/mranney) is the creator of [_the best_ node Redis client](https://github.com/NodeRedis/node_redis) upon which this project heavily depends.
 
 ## License
 
