@@ -1,0 +1,22 @@
+{
+  "name": "rediserve",
+  "version": "0.0.1",
+  "description": "A custom nodejs web server designed to be used in conjunction with the Redis-based storage of the Ember Lightning Fast Deployment methodology. The server leverages ExpressJS to quickly serve up current index.html markup while allowing developers and QA teams to easily view specific revisions of index.html before making them public.",
+  "main": "rediserve.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "rediserve"
+  },
+  "keywords": [
+    "webserver",
+    "redis",
+    "ember",
+    "lightning",
+    "deploy"
+  ],
+  "author": "Christian Gaetano",
+  "license": "MIT"
+}
