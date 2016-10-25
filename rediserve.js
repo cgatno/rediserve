@@ -1,42 +1,54 @@
 'use strict';
 
 // rediserve.js
-/* rediserve is a custom nodejs web server designed to be used in conjunction with the Redis-based storage of the Ember Lightning Fast Deployment methodology. The server leverages ExpressJS to quickly serve up current index.html markup while allowing developers and QA teams to easily view specific revisions of index.html before making them public. */
+// See README at https://github.com/cgatno/rediserve for more information
 
-var rediserve = function () {};
+let rediserve = function () {};
+
+let redis = require("redis"),
+    redisClient = undefined;
+
+let clientConnected = false;
 
 /**
- * Initialize a rediserve web server listening on port 8080 using provided Express routing and Redis client connection. No additional configuration can be performed at this time.
  * 
- * TODO: Add configuration options!
  * 
- * @param {Object} redisCli - An initialized Redis client connection from node_redis (https://github.com/NodeRedis/node_redis)
- * @param {Object} expressApp - An initialized ExpressJS app object (e.g. var app = express();). See ExpressJS documentation for more information (http://expressjs.com/)
- * @param {string} appName - A string representation of the app name. The server assumes that this is also a prefix for keys in your Redis database (i.e. appName:index:current) 
+ * @param {Object} options - an object containing options for connecting to Redis using the npm 'redis' package
+ * For a full listing of options and documentation, see https://github.com/NodeRedis/node_redis/blob/master/README.md
+ * 
+ * @param {function} connectCallback - a function to be called when the connection to the Redis client is made
+ * @param {function} disconnectCallback - a function to be called when the connection to the Redis client is closed
  */
-rediserve.prototype.up = function (redisCli, expressApp, appName) {
-    expressApp.get('*', function (req, res) {
-        redisCli.get(appName + ':index:current-content'),
-            function (err, value) {
-                if (!err) {
-                    let html = value;
-                    res.send(html);
-                } else {
-                    throw new rediserve.RedisGetException(err);
-                }
-            }
+rediserve.prototype.connectToRedis = function (options, connectCallback, disconnectCallback) {
+    // Connect to Redis using supplied options and node redis client
+    redisClient = redis.createClient(options);
+
+    // Hook up the connect and disconnect event listeners to toggle our boolean indicator of connectedness
+    redisClient.on('connect', function () {
+        clientConnected = true;
+        if (typeof (connectCallback) == 'function') connectCallback();
     });
-    expressApp.listen(8080);
-}
+    redisClient.on('end', function () {
+        clientConnected = false;
+        if (typeof (disconnectCallback) == 'function') disconnectCallback();
+    });
+};
 
 /**
- * Defines a specialized exception for Redis GET errors
+ * Gets the raw HTML of a specified index.html revision for the given app. If no revision is specified, the current HTML is retrieved.
  * 
- * @param {string} message - A message explaining (in detail!) the cause of a Redis GET error
+ * @param {string} [appTag='emberApp'] - the app name that prefixes keys in the Redis store (e.g. emberApp:index:current)
+ * @param {string} [rev='current'] - the index.html revision to fetch. If no revision is specified, the current HTML is returned.
  */
-rediserve.prototype.RedisGetException = function (message) {
-    this.message = message;
-    this.name = "RedisGetException";
-}
+rediserve.prototype.getHtml = function (appTag = 'emberApp', rev = 'current') {
+    if (clientConnected) {
+        let desiredKey = appTag + ':index:' + rev;
+        redisClient.get(desiredKey, function (err, value) {
+            if (!err) {
+                return value;
+            }
+        });
+    }
+};
 
 module.exports = new rediserve();
