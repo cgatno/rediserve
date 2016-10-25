@@ -1,19 +1,24 @@
-# rediserve
+rediserve - a lightning fast Redis interface for EmberJS deployments
+=========================
 
-> rediserve is a custom nodejs web server designed to be used in conjunction with the Redis-based storage of the Ember Lightning Fast Deployment methodology. The server leverages ExpressJS to quickly serve up current index.html markup while allowing developers and QA teams to easily view specific revisions of index.html before making them public.
+This is a Redis client wrapper for working with lightning fast EmberJS deployments and workflows.
 
-[![NPM Version][npm-image]][npm-url]
+Install with:
 
-## Install
+    npm install redis
 
-```bash
-npm i --save rediserve
-```
-
-## Usage
+## Usage example
 
 TODO
 
+## How to Contribute
+- Open a pull request or an issue about what you want to implement / change. I'm always looking for help to move the project forward!
+ - I want this to be reliable and functional, so only submit thoroughly tested code!
+
+## Contributors
+
+The original author of node_redis is [Christian Gaetano](https://github.com/cgatno)
+
 ## License
 
-[MIT](http://vjpr.mit-license.org)
+[MIT](LICENSE)
