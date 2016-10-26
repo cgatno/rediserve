@@ -91,6 +91,8 @@ rediserve.prototype.getHtml = function (options) {
     // There's no default for a callback, so throw an error if a valid function is not defined
     if (typeof (this.options.callback) !== 'function') throw new rediserve.prototype.GetHtmlError('You must provide a valid callback function to which the HTML payload can be delivered.');
 
+    let getHtmlCallback = this.options.callback;
+
     // If we're connected to Redis, fetch the HTML and deliver it via callback payload
     if (clientConnected) {
         // Build the desired key name from our app tag and revision
@@ -98,7 +100,7 @@ rediserve.prototype.getHtml = function (options) {
         redisClient.get(desiredKey, function (err, value) {
             // if there's an error then throw up the exception
             if (err) throw new rediserve.prototype.GetHtmlError(err);
-            this.options.callback(value); // pass the HTML to our callback
+            getHtmlCallback(value); // pass the HTML to our callback
         });
     } else { // if we're not connected then throw an error
         throw new rediserve.prototype.GetHtmlError('No Redis connection exists. Did you run rediserve.connect()?');
