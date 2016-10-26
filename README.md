@@ -1,6 +1,8 @@
 rediserve - a lightning fast Redis interface for EmberJS deployments
 =========================
 
+[![GitHub version](https://badge.fury.io/gh/cgatno%2Frediserve.svg)](https://badge.fury.io/gh/cgatno%2Frediserve) [![npm version](https://badge.fury.io/js/rediserve.svg)](https://badge.fury.io/js/rediserve)
+
 This is a Redis client wrapper for working with lightning fast EmberJS deployments and workflows.
 
 Install with:
