@@ -111,8 +111,8 @@ function GetHtmlError(message) {
     this.stack = (new Error()).stack;
 }
 GetHtmlError.prototype = Object.create(Error.prototype);
-CustomError.prototype.name = "GetHtmlError";
-CustomError.prototype.message = "";
-CustomError.prototype.constructor = GetHtmlError;
+GetHtmlError.prototype.name = "GetHtmlError";
+GetHtmlError.prototype.message = "";
+GetHtmlError.prototype.constructor = GetHtmlError;
 
 module.exports = new rediserve();
