@@ -30,27 +30,37 @@ var rediserve = require('rediserve');
 var app = express();
 
 // IMPORTANT: connect rediserve to Redis database first
-rediserve.connectToRedis({password: '\\@}R^0c|,M,LW])kr&W?G9'},
-        function() {
-                console.log('Connected to Redis!'); // Define a callback for when we connect
-        },
-        function() {
-                console.log('Disconnected from Redis.'); // Define a callback in the event we're disconnected :(
-        });
+rediserve.connect({
+        password: '|cuY9yjA&{LCsjLpE5G,<o'
+    },
+    function (eventName, eventMsg) { // define a callback to handle Redis database events
+        console.log('Redis event: ' + eventName + ' (' + eventMsg + ')');
+    });
 
-// Listen on all paths since this is a single-page Ember app
-app.get('*', function(req, res) {
-        rediserve.getHtml('ember-quickstart', 'current-content', function(html, err) {
-                if (!err) {
-                        res.send(html);
-                } else {
-                        console.log('Error fetching HTML! ' + err);
+// Route all other paths to get a single index.html since this is a single-page Ember app
+app.get('/*', function (req, res) {
+            // Specially route any requests with a url-defined rev variable (e.g. ?revision=3783dvb2386723v39)
+            // WARNING: Don't do it this way for a production app! Make sure you somehow check or sanitize the
+            // input from the request first!
+            let desiredRev = req.query.revision;
+            try {
+                rediserve.getHtml({
+                        appTag: 'ember-quickstart',
+                        rev: desiredRev, // desiredRev will be undefined (default to current-content) or retrieved from the URL
+                        callback: function(html) {
+                            res.send(html);
+                        }
+                });
+            } catch (e) {
+                if (e instanceof rediserve.GetHtmlError) {
+                    console.log('Could not retrieve HTML because ' + e.message);
                 }
-        });
+            }
 });
 
-// Start listening for connections on port 8080
+// Start the server, listening on port 8080
 app.listen(8080);
+console.log('rediserve test server listening on port 8080...');
 ```
 
 ## How to Contribute
