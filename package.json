@@ -1,6 +1,6 @@
 {
   "name": "rediserve",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "This is a Redis client wrapper for working with lightning fast EmberJS deployments and workflows.",
   "main": "rediserve.js",
   "scripts": {
