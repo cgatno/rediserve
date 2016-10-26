@@ -11,27 +11,48 @@ let redis = require("redis"),
 let clientConnected = false;
 
 /**
- * 
+ * Connects rediserve to the Redis database holding the EmberJS index.html revisions. The library uses the npm
+ * 'redis' package (https://www.npmjs.com/package/redis) to connect to Redis stores, so you must provide options
+ * for the connection according to the redis package's documentation.
  * 
  * @param {Object} options - an object containing options for connecting to Redis using the npm 'redis' package
  * For a full listing of options and documentation, see https://github.com/NodeRedis/node_redis/blob/master/README.md
  * 
- * @param {function} connectCallback - a function to be called when the connection to the Redis client is made
- * @param {function} disconnectCallback - a function to be called when the connection to the Redis client is closed
+ * @param {function} redisEventCallback - a function to be called when the Redis connection client encounters one of the monitored
+ * events (see 'Monitored Redis Events' section in the documentation). The function is passed two parameters: the event name and any
+ * messages associated with the event.
+ * 
+ * @returns {Object} The created Redis connection client returned by 'redis' (https://www.npmjs.com/package/redis) if the connection succeeds.
+ * Returns false if there is a connection error.
  */
-rediserve.prototype.connectToRedis = function (options, connectCallback, disconnectCallback) {
+rediserve.prototype.connectToRedis = function (options, redisEventCallback) {
     // Connect to Redis using supplied options and node redis client
     redisClient = redis.createClient(options);
 
-    // Hook up the connect and disconnect event listeners to toggle our boolean indicator of connectedness
-    redisClient.on('connect', function () {
-        clientConnected = true;
-        if (typeof (connectCallback) == 'function') connectCallback();
+    let redisEventCallbackProvided = (typeof (redisEventCallback) == 'function');
+
+    // Hook up connected and disconnected event listeners to pass on to the user
+    // and to toggle our connectedness boolean
+    redisClient.on('connect', function (err) {
+        // if err is undefined then we must be connected!
+        clientConnected = (typeof (err) === 'undefined');
+        // call the supplied event callback with the proper status
+        if (redisEventCallbackProvided) redisEventCallback(clientConnected ? 'connected' : 'error', err);
     });
-    redisClient.on('end', function () {
+    redisClient.on('end', function (err) {
+        // regardless of errors we should be disconnected now
         clientConnected = false;
-        if (typeof (disconnectCallback) == 'function') disconnectCallback();
+        // call the supplied event callback with the proper status
+        if (redisEventCallbackProvided) redisEventCallback('disconnected', err);
     });
+
+    // Hook up additional event listeners to the supplied event callback if provided
+    if (redisEventCallbackProvided) {
+        redisClient.on('error', function (err) {
+            redisEventCallback('error', err);
+        });
+    }
+    return clientConnected ? redisClient : false;
 };
 
 /* This is a much prettier and easier-to-type alias for the connectToRedis function */
@@ -50,7 +71,7 @@ rediserve.prototype.getHtml = function (appTag = 'emberApp', rev = 'current', ca
     if (clientConnected) {
         let desiredKey = appTag + ':index:' + rev;
         redisClient.get(desiredKey, function (err, value) {
-            if (typeof(callback) == 'function') {
+            if (typeof (callback) == 'function') {
                 callback(value, err);
             }
         });
