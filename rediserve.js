@@ -34,6 +34,9 @@ rediserve.prototype.connectToRedis = function (options, connectCallback, disconn
     });
 };
 
+/* This is a much prettier and easier-to-type alias for the connectToRedis function */
+rediserve.prototype.connect = rediserve.prototype.connectToRedis;
+
 /**
  * Gets the raw HTML of a specified index.html revision for the given app. If no revision is specified, the current HTML is retrieved.
  *  
