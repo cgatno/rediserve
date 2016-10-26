@@ -36,16 +36,19 @@ rediserve.prototype.connectToRedis = function (options, connectCallback, disconn
 
 /**
  * Gets the raw HTML of a specified index.html revision for the given app. If no revision is specified, the current HTML is retrieved.
- * 
+ *  
  * @param {string} [appTag='emberApp'] - the app name that prefixes keys in the Redis store (e.g. emberApp:index:current)
  * @param {string} [rev='current'] - the index.html revision to fetch. If no revision is specified, the current HTML is returned.
+ * @param {function} callback - a function to be called when the HTML is retrieved. The parameters passed to the function are the retrieved HTML and any error messages, in that order.
+ * 
+ * TODO: Fix the way parameters work here so that appTag and rev are truly optional while callback is required. Fix by release 0.2.0
  */
-rediserve.prototype.getHtml = function (appTag = 'emberApp', rev = 'current') {
+rediserve.prototype.getHtml = function (appTag = 'emberApp', rev = 'current', callback) {
     if (clientConnected) {
         let desiredKey = appTag + ':index:' + rev;
         redisClient.get(desiredKey, function (err, value) {
-            if (!err) {
-                return value;
+            if (typeof(callback) == 'function') {
+                callback(value, err);
             }
         });
     }
