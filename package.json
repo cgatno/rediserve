@@ -1,0 +1,24 @@
+{
+  "name": "rediserve",
+  "version": "0.2.0",
+  "description": "This is a Redis client wrapper for working with lightning fast EmberJS deployments and workflows.",
+  "main": "rediserve.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cgatno/rediserve"
+  },
+  "keywords": [
+    "redis",
+    "ember",
+    "lightning",
+    "deploy"
+  ],
+  "author": "Christian Gaetano",
+  "license": "MIT",
+  "dependencies": {
+    "redis": "^2.6.2"
+  }
+}

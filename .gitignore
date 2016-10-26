@@ -1,0 +1,2 @@
+# Ignore node dependency vendor files
+node_modules/
