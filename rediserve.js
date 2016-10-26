@@ -87,7 +87,7 @@ rediserve.prototype.getHtml = function (options) {
 
     // If any of the options are still undefined, set up defaults
     if (typeof (this.options.appTag) === 'undefined') this.options.appTag = DEF_APP_TAG;
-    if (typeof (this.options.rev) === 'undefined') this.options.appTag = DEF_INDEX_REV;
+    if (typeof (this.options.rev) === 'undefined') this.options.rev = DEF_INDEX_REV;
     // There's no default for a callback, so throw an error if a valid function is not defined
     if (typeof (this.options.callback) !== 'function') throw new rediserve.prototype.GetHtmlError('You must provide a valid callback function to which the HTML payload can be delivered.');
 
