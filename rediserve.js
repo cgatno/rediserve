@@ -68,7 +68,7 @@ const DEF_INDEX_REV = 'current-content'; // this is the default key name for an 
  * @param {Object} options - An object containing the options for HTML retrieval
  * @param {string} options.appTag - the app name that prefixes keys in the Redis store (e.g. emberApp:index:current)
  * @param {string} options.rev - the index.html revision to fetch. If no revision is specified, the current HTML is returned.
- * @param {function} options.callback - a function to be called when the HTML is retrieved. The parameters passed to the function are the retrieved HTML and any error messages, in that order.
+ * @param {function} options.callback - a function to be called when the HTML is retrieved. The retrieved HTML is passed to the callback function as a single parameter.
  * 
  */
 rediserve.prototype.getHtml = function (options) {
