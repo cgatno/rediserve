@@ -89,7 +89,7 @@ rediserve.prototype.getHtml = function (options) {
     if (typeof (this.options.appTag) === 'undefined') this.options.appTag = DEF_APP_TAG;
     if (typeof (this.options.rev) === 'undefined') this.options.appTag = DEF_INDEX_REV;
     // There's no default for a callback, so throw an error if a valid function is not defined
-    if (typeof (this.options.callback) !== 'function') throw new GetHtmlError('You must provide a valid callback function to which the HTML payload can be delivered.');
+    if (typeof (this.options.callback) !== 'function') throw new rediserve.prototype.GetHtmlError('You must provide a valid callback function to which the HTML payload can be delivered.');
 
     // If we're connected to Redis, fetch the HTML and deliver it via callback payload
     if (clientConnected) {
@@ -97,11 +97,11 @@ rediserve.prototype.getHtml = function (options) {
         let desiredKey = this.options.appTag + ':index:' + this.options.rev;
         redisClient.get(desiredKey, function (err, value) {
             // if there's an error then throw up the exception
-            if (typeof (err) !== 'undefined') throw new GetHtmlError(err);
+            if (err) throw new rediserve.prototype.GetHtmlError(err);
             this.options.callback(value); // pass the HTML to our callback
         });
     } else { // if we're not connected then throw an error
-        throw new GetHtmlError('No Redis connection exists. Did you run rediserve.connect()?');
+        throw new rediserve.prototype.GetHtmlError('No Redis connection exists. Did you run rediserve.connect()?');
     }
 };
 
