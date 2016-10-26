@@ -106,13 +106,13 @@ rediserve.prototype.getHtml = function (options) {
 };
 
 /* Custom error handlers */
-function GetHtmlError(message) {
+rediserve.prototype.GetHtmlError = function (message) {
     this.message = message;
     this.stack = (new Error()).stack;
 }
-GetHtmlError.prototype = Object.create(Error.prototype);
-GetHtmlError.prototype.name = "GetHtmlError";
-GetHtmlError.prototype.message = "";
-GetHtmlError.prototype.constructor = GetHtmlError;
+rediserve.prototype.GetHtmlError.prototype = Object.create(Error.prototype);
+rediserve.prototype.GetHtmlError.prototype.name = "GetHtmlError";
+rediserve.prototype.GetHtmlError.prototype.message = "";
+rediserve.prototype.GetHtmlError.prototype.constructor = rediserve.prototype.GetHtmlError;
 
 module.exports = new rediserve();
