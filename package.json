@@ -1,7 +1,7 @@
 {
   "name": "rediserve",
-  "version": "0.2.0",
-  "description": "This is a Redis client wrapper for working with lightning fast EmberJS deployments and workflows.",
+  "version": "0.3.0",
+  "description": "This is a Redis client and Express web server wrapper for working with lightning fast EmberJS deployments and workflows.",
   "main": "rediserve.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,11 +14,15 @@
     "redis",
     "ember",
     "lightning",
-    "deploy"
+    "deploy",
+    "express",
+    "webserver"
   ],
   "author": "Christian Gaetano",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.14.0",
+    "express-http-proxy": "^0.10.1",
     "redis": "^2.6.2"
   }
 }
