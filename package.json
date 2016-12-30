@@ -1,30 +1,32 @@
 {
-  "name": "rediserve",
-  "version": "0.3.0",
-  "description": "This is a Redis client and Express web server wrapper for working with lightning fast EmberJS deployments and workflows.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cgatno/rediserve"
-  },
-  "keywords": [
-    "redis",
-    "ember",
-    "lightning",
-    "deploy",
-    "express",
-    "webserver",
-    "cli"
-  ],
-  "author": "Christian Gaetano",
-  "license": "MIT",
-  "dependencies": {
-    "commander": "^2.9.0",
-    "express": "^4.14.0",
-    "express-http-proxy": "^0.10.1",
-    "redis": "^2.6.2"
-  }
+    "name": "rediserve",
+    "version": "0.3.0",
+    "description": "This is a lightning fast web server for single page web apps stored in Redis.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cgatno/rediserve"
+    },
+    "keywords": [
+        "redis",
+        "ember",
+        "lightning",
+        "deploy",
+        "express",
+        "webserver",
+        "cli"
+    ],
+    "author": "Christian Gaetano <get@christiangaeta.no> (https://christiangaetano.com)",
+    "homepage": "https://rediserve.io",
+    "license": "MIT",
+    "dependencies": {
+        "commander": "^2.9.0",
+        "express": "^4.14.0",
+        "express-http-proxy": "^0.10.1",
+        "redis": "^2.6.2"
+    },
+    "bin": "./cli.js"
 }
