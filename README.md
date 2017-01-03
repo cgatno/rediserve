@@ -43,6 +43,7 @@ I think it's pretty good practice for every project (even if it's a small, side 
 Rediserve was born out of one simple need: _a need for speed_. All joking aside, most developers who are familiar with Redis know that it is [_fast_](https://redis.io/topics/benchmarks). As an in-memory data storage solution, Redis boasts all of the features of a full-fledged data platform while maintaining the speed of more "stripped down" solutions like memcached. Because of this, Redis has been used to speed up web applications in all kinds of unique and innovative ways.
 
 Rediserve strives to take full advantage of the benefits offered by Redis to help you improve two vital aspects of your SPA:
+
 1. [Performance](#performance)
 2. [Development and deployment workflow](#deployment-and-development-workflow)
 
@@ -82,12 +83,16 @@ _See the [changelog](#changelog) for a list of previous changes_
 - Operational and full-featured CLI
 - Standalone web server (via [express](https://github.com/expressjs/express/))
 - Comprehensive docs
+
 ---
+
 **v0.4.0**
 - Revision management system available via API
 - Built-in A/B testing mechanism
 - Update docs, description, etc. for new feature set
+
 ---
+
 **> v0.4.0**
 - Extend revision management system and testing mechanics to CLI
 - Deployment strategies for standalone SPAs
