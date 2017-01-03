@@ -82,12 +82,16 @@ _See the [changelog](#changelog) for a list of previous changes_
 - Operational and full-featured CLI
 - Standalone web server (via [express](https://github.com/expressjs/express/))
 - Comprehensive docs
+
 ---
+
 **v0.4.0**
 - Revision management system available via API
 - Built-in A/B testing mechanism
 - Update docs, description, etc. for new feature set
+
 ---
+
 **> v0.4.0**
 - Extend revision management system and testing mechanics to CLI
 - Deployment strategies for standalone SPAs
