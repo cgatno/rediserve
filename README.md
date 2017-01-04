@@ -60,16 +60,43 @@ After watching [Luke Melia](http://www.lukemelia.com/)'s [2014 talk at RailsConf
 **Redis data store**
 
 |          Key          |                                 Value                                  |
-|:----------------------|:------------------------------------------------------------------------|
+|:----------------------|:-----------------------------------------------------------------------|
 | my-app:index:current  | a39nd129                                                               |
 | my-app:index:a39nd129 | `<html> <head>   <title>Production</title> </head> ... </html>`        |
 | my-app:index:dn38au55 | `<html> <head>   <title>Revision dn38au55</title> </head> ... </html>` |
 
+As you can see, the default strategy is to store your index.html content as a value associated with a key named for your app and the index.html revision. (The revision tag is just a hash of your index.html content.) There is also an <app-name>:index:current key that points to the current revision of index.html (the one you want to be served to users).
 
+Right now, Rediserve is just a web _server_ solution, so it doesn't handle deployment tasks. Therefore, Rediserve expects your index.html content to be stored in the above fashion. If you need to store your content in a different format, you can build a custom wrapper around Rediserve and use the open API.
+
+For more information on how exactly this works and how Rediserve helps manage revisions, check out the [usage in depth](#usage-in-depth) section. If you want to get your app set up to work with Rediserve right away, then simply continue reading!
 
 ## Setting up your app to work with Rediserve
 
+## Usage in depth
 
+### Revision management
+
+Even though it is not (yet!) a full-featured deployment endpoint, Rediserve supports some revision management tasks out-of-the-box.
+
+**Automatic revision activation**
+
+If there is no <app-name>:index:current key in your Redis database, Rediserve will automatically create one that points to the last added <app-name>:index:revision record.
+
+_Example_
+
+|          Key          |                                 Value                                  |
+|:----------------------|:-----------------------------------------------------------------------|
+| my-app:index:a39nd129 | `<html> <head>   <title>Production</title> </head> ... </html>`        |
+| my-app:index:dn38au55 | `<html> <head>   <title>Revision dn38au55</title> </head> ... </html>` |
+
+would become
+
+|          Key          |                                 Value                                  |
+|:----------------------|:-----------------------------------------------------------------------|
+| my-app:index:current  | a39nd129                                                               |
+| my-app:index:a39nd129 | `<html> <head>   <title>Production</title> </head> ... </html>`        |
+| my-app:index:dn38au55 | `<html> <head>   <title>Revision dn38au55</title> </head> ... </html>` |
 
 ## How it works
 
