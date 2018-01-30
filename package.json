@@ -1,7 +1,7 @@
 {
     "name": "rediserve",
     "version": "0.3.0",
-    "description": "This is a lightning fast web server for single page web apps stored in Redis.",
+    "description": "Lightning fast web server for single page web apps stored in Redis.",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +19,7 @@
         "webserver",
         "cli"
     ],
-    "author": "Christian Gaetano <get@christiangaeta.no> (https://christiangaetano.com)",
+    "author": "Christian Gaetano <hello@christiangaetano.com> (https://christiangaetano.com)",
     "homepage": "https://rediserve.io",
     "license": "MIT",
     "dependencies": {
