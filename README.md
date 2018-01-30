@@ -4,6 +4,16 @@
 
 This is a fast, compact, and straightforward web server designed to serve up single page web applications (SPAs) stored in a Redis database.
 
+## 🚧 UNDER CONSTRUCTION 🚧
+
+It's been awhile since I've had time to work on rediserve, but now I'm circling back to rework it for modern usage.
+
+The _new_ rediserve will be focused on building a platform through which developers can...
+
+- Easily manage web app revisioning and caching 🔄
+- Host and serve web apps with the greatest possible performance and stability ⚡
+- Extend functionality to customize a Redis-based deployment platform 🚀
+
 ## Features
 
 Before we get to the technical stuff, let's talk about some of Rediserve's core features:
